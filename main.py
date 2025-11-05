@@ -331,7 +331,7 @@ def format_assignment_output(assignment, competitors, groups):
             {
                 "group_id": group_id,
                 "position": position,
-                "competitor_id": comp_name,
+                # "competitor_id": comp_name,
                 "name": competitors[comp_name].name,
                 "country": competitors[comp_name].country,
             }
@@ -409,7 +409,7 @@ def upload_groups():
         return jsonify({"error": str(e)}), 500
 
 
-@app.route("/api/fixed_positions", methods=["POST"])
+@app.route("/api/fixed", methods=["POST"])
 def upload_fixed_positions():
     try:
         data = request.get_json()
@@ -536,10 +536,10 @@ def export_results(result_hash):
         # Create a response with the CSV file
         output.seek(0)
         return send_file(
-            io.BytesIO(output.getvalue().encode("utf-8")),
+            path_or_file=io.BytesIO(output.getvalue().encode("utf-8")),
             mimetype="text/csv",
             as_attachment=True,
-            attachment_filename=f"kendo_assignment_{result_hash}.csv",
+            download_name=f"kendo_assignment_{result_hash}.csv",
         )
     else:
         # Return JSON
