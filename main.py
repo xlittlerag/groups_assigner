@@ -1,4 +1,3 @@
-# app.py
 import json
 import csv
 import random
